@@ -5,7 +5,8 @@
 4.ubuntu 도 마찬가지로 제거
 력
 6. 관리자 권한 실행
-feature /featurename:VirtualMachinePlatform /all /norestart
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 7. 위 명령어 입력
 8. 컴퓨터 재부팅
 
