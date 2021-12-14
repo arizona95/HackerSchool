@@ -12,17 +12,15 @@
 12 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do echo $fn ; done
 13 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/updates.20141222.0000.bz2
 14 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do wget "http://archive.routeviews.org/bgpdata/2014.12/UPDATES/$fn" ; done
-15 [root@localhost ~]# mkdir homework
-16 [root@localhost ~]# cd homework
-17 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/
-18 [root@localhost ~]# cat index.html
-19 [root@localhost ~]# cat index.html | grep updates
-20 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}'
-21 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}' | grep 2014122[234]
-22 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}' | grep 2014122[234] > download_list.txt
-23 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn ; done
-24 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn | sed 's/\./ /g' ; done
-25 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn |  awk -F "." '{print $2}'; done
-26 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do echo $fn ; done
-27 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/updates.20141222.0000.bz2
-28 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do wget "http://archive.routeviews.org/bgpdata/2014.12/UPDATES/$fn" ; done
+15 [root@localhost ~]# for f in *; do echo $f ; done
+16 [root@localhost ~]# for f in *.bz2; do echo $f ; done
+17 [root@localhost ~]# for f in *.bz2; do echo $f | sed 's/\.//g' ; done
+18 [root@localhost ~]# for f in *.bz2; do ts=`echo $f | sed 's/\.//g'` ; echo ${ts:7:12} ; done
+19 [root@localhost ~]# for f in *.bz2; do ts=`echo $f | sed 's/\.//g'` ; echo ${ts:13:6} ; done
+20 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | head
+21 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | awk -F "|" '{print $3}' | head
+22 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | awk -F "|" '{print $3}' | sort | uniq -c
+23 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | awk -F "|" '{print $3}' | sort | uniq -c | sed 'N; s/\n/ /' 
+24 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | awk -F "|" '{print $3}' | sort | uniq -c | sed 'N; s/\n/,/g; s/A//g; s/W//g; s/ //g' 
+25 [root@localhost ~]# for f in *.bz2; do bgpdump -m $f | awk -F "|" '{print $3}' | sort | uniq -c | sed 'N; s/\n/,/g; s/A//g; s/W//g; s/ //g' ; done
+26 [root@localhost ~]# for f in *.bz2 ; do ts=`echo $f | sed 's/\.//g'` ; br=`bgpdump -m $f | awk -F "|" '{print $3}' | sort | uniq -c | sed 'N;s/\n/,/g;s/A//g;s/W//g'`  ; echo -e ${ts:13:6} ",$br" >>result.csv; done
