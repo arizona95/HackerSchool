@@ -17,6 +17,10 @@
 17 [root@localhost ~]# for f in *.bz2; do echo $f | sed 's/\.//g' ; done
 18 [root@localhost ~]# for f in *.bz2; do ts=`echo $f | sed 's/\.//g'` ; echo ${ts:7:12} ; done
 19 [root@localhost ~]# for f in *.bz2; do ts=`echo $f | sed 's/\.//g'` ; echo ${ts:13:6} ; done
+
+powershell "wget -Uri http://archive.ubuntu.com/ubuntu/pool/universe/b/bgpdump/bgpdump_1.6.0-2_amd64.deb -OutFile %HOMEDRIVE%%HOMEPATH%\Downloads\cyber_homework\bgpdump_1.6.0-2_amd64.deb"
+[root@localhost ~]# sudo dpkg -i bgpdump_1.6.0-2_amd64.deb 
+
 20 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | head
 21 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | awk -F "|" '{print $3}' | head
 22 [root@localhost ~]# bgpdump -m updates.20141222.0000.bz2 | awk -F "|" '{print $3}' | sort | uniq -c
