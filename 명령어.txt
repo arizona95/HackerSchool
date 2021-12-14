@@ -1,0 +1,28 @@
+1 [root@localhost ~]# mkdir homework
+2 [root@localhost ~]# cd homework
+3 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/
+4 [root@localhost ~]# cat index.html
+5 [root@localhost ~]# cat index.html | grep updates
+6 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}'
+7 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}' | grep 2014122[234]
+8 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}' | grep 2014122[234] > download_list.txt
+9 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn ; done
+10 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn | sed 's/\./ /g' ; done
+11 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn |  awk -F "." '{print $2}'; done
+12 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do echo $fn ; done
+13 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/updates.20141222.0000.bz2
+14 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do wget "http://archive.routeviews.org/bgpdata/2014.12/UPDATES/$fn" ; done
+15 [root@localhost ~]# mkdir homework
+16 [root@localhost ~]# cd homework
+17 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/
+18 [root@localhost ~]# cat index.html
+19 [root@localhost ~]# cat index.html | grep updates
+20 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}'
+21 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}' | grep 2014122[234]
+22 [root@localhost ~]# cat index.html | grep updates | awk -F "\"" '{print $8}' | grep 2014122[234] > download_list.txt
+23 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn ; done
+24 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn | sed 's/\./ /g' ; done
+25 [root@localhost ~]# for fn in $(cat download_list.txt) ; do echo $fn |  awk -F "." '{print $2}'; done
+26 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do echo $fn ; done
+27 [root@localhost ~]# wget http://archive.routeviews.org/bgpdata/2014.12/UPDATES/updates.20141222.0000.bz2
+28 [root@localhost ~]# for fn in $(cat download_list.txt | head) ; do wget "http://archive.routeviews.org/bgpdata/2014.12/UPDATES/$fn" ; done
