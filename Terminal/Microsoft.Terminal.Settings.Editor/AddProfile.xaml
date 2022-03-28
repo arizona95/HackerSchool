@@ -1,0 +1,89 @@
+﻿<!--
+    Copyright (c) Microsoft Corporation. All rights reserved. Licensed under
+    the MIT License. See LICENSE in the project root for license information.
+-->
+<Page x:ConnectionId='1' x:Class="Microsoft.Terminal.Settings.Editor.AddProfile"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Microsoft.Terminal.Settings.Editor"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:model="using:Microsoft.Terminal.Settings.Model"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <model:IconPathConverter x:Key="IconSourceConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer x:ConnectionId='2'                            >
+        <StackPanel Style="{StaticResource SettingsStackStyle}">
+            <Button x:ConnectionId='3' x:Uid="AddProfile_AddNewButton"
+                    AutomationProperties.AutomationId="AddProfile_AddNewButton"
+                    AutomationProperties.Name="{Binding Tag, RelativeSource={RelativeSource Self}}"
+                                       
+                    Style="{StaticResource AccentButtonStyle}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontSize="{StaticResource StandardIconSize}"
+                                  Glyph="&#xE710;" />
+                        <TextBlock x:Uid="AddProfile_AddNewTextBlock"
+                                   Style="{StaticResource IconButtonTextBlockStyle}" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <StackPanel Margin="{StaticResource StandardControlMargin}">
+                <local:SettingContainer x:Uid="AddProfile_Duplicate">
+                    <muxc:RadioButtons x:ConnectionId='5' x:Name="Profiles"
+                                       AutomationProperties.AccessibilityView="Content"
+                                                                                                     >
+                        <muxc:RadioButtons.ItemTemplate>
+                            <DataTemplate                           >
+                                <Grid x:ConnectionId='7' HorizontalAlignment="Stretch"
+                                      ColumnSpacing="8">
+
+                                    <Grid.ColumnDefinitions>
+                                        <!--  icon  -->
+                                        <ColumnDefinition Width="16" />
+                                        <!--  profile name  -->
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <IconSourceElement x:ConnectionId='8' Grid.Column="0"
+                                                       Width="16"
+                                                       Height="16"
+                                                                                                                                               />
+
+                                    <TextBlock x:ConnectionId='9' Grid.Column="1"
+                                                                    />
+
+                                </Grid>
+                            </DataTemplate>
+                        </muxc:RadioButtons.ItemTemplate>
+                    </muxc:RadioButtons>
+                </local:SettingContainer>
+                <Button x:ConnectionId='4' x:Uid="AddProfile_DuplicateButton"
+                        Margin="{StaticResource StandardControlMargin}"
+                        AutomationProperties.AutomationId="AddProfile_DuplicateButton"
+                        AutomationProperties.Name="{Binding Tag, RelativeSource={RelativeSource Self}}"
+                                              
+                        Style="{StaticResource AccentButtonStyle}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon FontSize="{StaticResource StandardIconSize}"
+                                      Glyph="&#xE8C8;" />
+                            <TextBlock x:Uid="AddProfile_DuplicateTextBlock"
+                                       Style="{StaticResource IconButtonTextBlockStyle}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
+

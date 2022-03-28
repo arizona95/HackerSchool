@@ -1,0 +1,454 @@
+﻿<!--
+    Copyright (c) Microsoft Corporation. All rights reserved. Licensed under
+    the MIT License. See LICENSE in the project root for license information.
+-->
+<UserControl x:ConnectionId='1' x:Class="Microsoft.Terminal.Settings.Editor.Appearances"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:Microsoft.Terminal.Settings.Editor"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="using:Microsoft.Terminal.Settings.Model"
+             xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+             IsTabStop="False"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="EnumRadioButtonTemplate"
+                                                      >
+                <RadioButton x:ConnectionId='7'                                          />
+            </DataTemplate>
+
+            <DataTemplate x:Key="EnumComboBoxItemTemplate"
+                                                      >
+                <TextBlock x:ConnectionId='5'                                       />
+            </DataTemplate>
+
+            <DataTemplate x:Key="FontFaceComboBoxItemTemplate"
+                                                 >
+                <TextBlock x:ConnectionId='3'                           
+                                                         />
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel Style="{StaticResource PivotStackStyle}">
+            <!--  Grouping: Text  -->
+            <TextBlock x:Uid="Profile_TextHeader"
+                       Style="{StaticResource SubtitleTextBlockStyle}" />
+
+            <!--  Color Scheme  -->
+            <local:SettingContainer x:ConnectionId='33' x:Uid="Profile_ColorScheme"
+                                    Margin="0"
+                                                                                                
+                                                                                                         
+                                                                                                                          >
+                <ComboBox x:ConnectionId='46'                                                    
+                                                                                 
+                          Style="{StaticResource ComboBoxSettingStyle}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate                               >
+                            <TextBlock x:ConnectionId='48'                                   />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </local:SettingContainer>
+
+            <!--  Font Face  -->
+            <local:SettingContainer x:ConnectionId='34' x:Uid="Profile_FontFace"
+                                                                                         
+                                                                                                  
+                                                                                                                   
+                                                                                           >
+                <StackPanel>
+                    <!--
+                        Binding the ItemsSource to a separate variable that switches between the
+                        two font lists causes a crash within the ComboBox code.
+                        As a workaround, introduce two ComboBox controls and only display one at a time.
+                    -->
+                    <ComboBox x:ConnectionId='43' ItemTemplate="{StaticResource FontFaceComboBoxItemTemplate}"
+                                                                                                 
+                                                                                  
+                                                                          
+                              Style="{StaticResource ComboBoxSettingStyle}"
+                                                                                                                            />
+                    <ComboBox x:ConnectionId='44' ItemTemplate="{StaticResource FontFaceComboBoxItemTemplate}"
+                                                                                                
+                                                                                  
+                                                                          
+                              Style="{StaticResource ComboBoxSettingStyle}"
+                                                                              />
+                    <CheckBox x:ConnectionId='45' x:Name="ShowAllFontsCheckbox"
+                              x:Uid="Profile_FontFaceShowAllFonts"
+                                                                            
+                                                                                   />
+                </StackPanel>
+            </local:SettingContainer>
+
+            <!--  Font Size  -->
+            <local:SettingContainer x:ConnectionId='35' x:Uid="Profile_FontSize"
+                                                                                         
+                                                                                                  
+                                                                                                                   
+                                                                                           >
+                <muxc:NumberBox x:ConnectionId='42' AcceptsExpression="False"
+                                LargeChange="10"
+                                Maximum="128"
+                                Minimum="1"
+                                SmallChange="1"
+                                Style="{StaticResource NumberBoxSettingStyle}"
+                                                                                  />
+            </local:SettingContainer>
+
+            <!--  Font Weight  -->
+            <local:SettingContainer x:ConnectionId='36' x:Name="FontWeightContainer"
+                                    x:Uid="Profile_FontWeight"
+                                                                                           
+                                                                                                    
+                                                                                                                     
+                                                                                           >
+                <StackPanel>
+                    <ComboBox x:ConnectionId='39' x:Name="FontWeightComboBox"
+                              ItemTemplate="{StaticResource EnumComboBoxItemTemplate}"
+                                                                                
+                                                                                    
+                              Style="{StaticResource ComboBoxSettingStyle}" />
+
+                    <!--  Custom Font Weight Control  -->
+                    <Grid x:ConnectionId='40' Margin="0,10,0,0"
+                          Style="{StaticResource CustomSliderControlGridStyle}"
+                                                                               >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Slider x:ConnectionId='41' x:Name="FontWeightSlider"
+                                Grid.Column="0"
+                                Maximum="1000"
+                                Minimum="0"
+                                TickFrequency="50"
+                                TickPlacement="Outside"
+                                                                                                                                                                      />
+                        <TextBlock Grid.Column="1"
+                                   Margin="10,0,0,0"
+                                   Style="{StaticResource SliderValueLabelStyle}"
+                                   Text="{Binding ElementName=FontWeightSlider, Path=Value, Mode=OneWay}" />
+                    </Grid>
+                </StackPanel>
+            </local:SettingContainer>
+
+            <!--  Retro Terminal Effect  -->
+            <local:SettingContainer x:ConnectionId='37' x:Uid="Profile_RetroTerminalEffect"
+                                                                                                    
+                                                                                                             
+                                                                                                                              >
+                <ToggleSwitch x:ConnectionId='38'                                                             />
+            </local:SettingContainer>
+        </StackPanel>
+
+        <!--  Grouping: Cursor  -->
+        <StackPanel Style="{StaticResource PivotStackStyle}">
+            <TextBlock x:Uid="Profile_CursorHeader"
+                       Style="{StaticResource SubtitleTextBlockStyle}" />
+
+            <!--  Cursor Shape  -->
+            <local:SettingContainer x:ConnectionId='29' x:Uid="Profile_CursorShape"
+                                    Margin="0"
+                                                                                            
+                                                                                                     
+                                                                                                                      >
+                <muxc:RadioButtons x:ConnectionId='32' AutomationProperties.AccessibilityView="Content"
+                                   ItemTemplate="{StaticResource EnumRadioButtonTemplate}"
+                                                                                      
+                                                                                           />
+            </local:SettingContainer>
+
+            <!--  Cursor Height  -->
+            <local:SettingContainer x:ConnectionId='30' x:Uid="Profile_CursorHeight"
+                                                                                             
+                                                                                                      
+                                                                                                                       
+                                                                                      >
+                <Grid Style="{StaticResource CustomSliderControlGridStyle}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Slider x:ConnectionId='31' x:Name="CursorHeightSlider"
+                            Grid.Column="0"
+                            Maximum="100"
+                            Minimum="1"
+                                                                                  />
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource SliderValueLabelStyle}"
+                               Text="{Binding ElementName=CursorHeightSlider, Path=Value, Mode=OneWay}" />
+                </Grid>
+            </local:SettingContainer>
+        </StackPanel>
+
+        <!--  Grouping: Background  -->
+        <StackPanel Style="{StaticResource PivotStackStyle}">
+            <TextBlock x:Uid="Profile_BackgroundHeader"
+                       Style="{StaticResource SubtitleTextBlockStyle}" />
+
+            <!--  Background Image  -->
+            <local:SettingContainer x:ConnectionId='10' x:Name="BackgroundImageContainer"
+                                    x:Uid="Profile_BackgroundImage"
+                                    Margin="0"
+                                                                                                    
+                                                                                                             
+                                                                                                                              >
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:ConnectionId='27'                                                                                                                          
+                                 Style="{StaticResource TextBoxSettingStyle}"
+                                                                                                                                                                                                          />
+                        <Button x:ConnectionId='28' x:Uid="Profile_BackgroundImageBrowse"
+                                                             
+                                                                                                                                                         
+                                Style="{StaticResource BrowseButtonStyle}" />
+                    </StackPanel>
+                    <CheckBox x:ConnectionId='26' x:Name="UseDesktopImageCheckBox"
+                              x:Uid="Profile_UseDesktopImage"
+                                                                                             />
+                </StackPanel>
+            </local:SettingContainer>
+
+            <!--  Background Image Stretch Mode  -->
+            <local:SettingContainer x:ConnectionId='11' x:Uid="Profile_BackgroundImageStretchMode"
+                                                                                                           
+                                                                                                                    
+                                                                                                                                     
+                                                                                                                >
+                <muxc:RadioButtons x:ConnectionId='25' AutomationProperties.AccessibilityView="Content"
+                                   ItemTemplate="{StaticResource EnumRadioButtonTemplate}"
+                                                                                                     
+                                                                                                          />
+            </local:SettingContainer>
+
+            <!--  Background Image Alignment  -->
+            <local:SettingContainer x:ConnectionId='12' x:Uid="Profile_BackgroundImageAlignment"
+                                                                                                         
+                                                                                                                  
+                                                                                                                                   
+                                                                                                                >
+                <Grid HorizontalAlignment="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.Resources>
+                        <Style BasedOn="{StaticResource DefaultToggleButtonStyle}"
+                               TargetType="ToggleButton">
+                            <Setter Property="Margin" Value="2" />
+                            <Setter Property="Width" Value="40" />
+                            <Setter Property="Height" Value="40" />
+                            <Setter Property="ToolTipService.Placement" Value="Mouse" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <!--  Top Row  -->
+                    <ToggleButton x:ConnectionId='16' x:Name="BIAlign_TopLeft"
+                                  x:Uid="Profile_BackgroundImageAlignmentTopLeft"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Top (0x10) | Horizontal_Left (0x01)  -->
+                            <x:Int32>17</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xE744;"
+                                      RenderTransformOrigin="0.5,0.5">
+                                <FontIcon.RenderTransform>
+                                    <RotateTransform Angle="90" />
+                                </FontIcon.RenderTransform>
+                            </FontIcon>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <ToggleButton x:ConnectionId='17' x:Name="BIAlign_Top"
+                                  x:Uid="Profile_BackgroundImageAlignmentTop"
+                                  Grid.Row="0"
+                                  Grid.Column="1"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Top (0x10) | Horizontal_Center (0x00)  -->
+                            <x:Int32>16</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xE745;"
+                                      RenderTransformOrigin="0.5,0.5">
+                                <FontIcon.RenderTransform>
+                                    <RotateTransform Angle="180" />
+                                </FontIcon.RenderTransform>
+                            </FontIcon>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <ToggleButton x:ConnectionId='18' x:Name="BIAlign_TopRight"
+                                  x:Uid="Profile_BackgroundImageAlignmentTopRight"
+                                  Grid.Row="0"
+                                  Grid.Column="2"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Top (0x10) | Horizontal_Right (0x02)  -->
+                            <x:Int32>18</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xEA5F;"
+                                      RenderTransformOrigin="0.5,0.5">
+                                <FontIcon.RenderTransform>
+                                    <RotateTransform Angle="270" />
+                                </FontIcon.RenderTransform>
+                            </FontIcon>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+
+                    <!--  Middle Row  -->
+                    <ToggleButton x:ConnectionId='19' x:Name="BIAlign_Left"
+                                  x:Uid="Profile_BackgroundImageAlignmentLeft"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Center (0x00) | Horizontal_Left (0x01)  -->
+                            <x:Int32>1</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xE746;" />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <ToggleButton x:ConnectionId='20' x:Name="BIAlign_Center"
+                                  x:Uid="Profile_BackgroundImageAlignmentCenter"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Center (0x00) | Horizontal_Center (0x00)  -->
+                            <x:Int32>0</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xF16E;" />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <ToggleButton x:ConnectionId='21' x:Name="BIAlign_Right"
+                                  x:Uid="Profile_BackgroundImageAlignmentRight"
+                                  Grid.Row="1"
+                                  Grid.Column="2"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Center (0x00) | Horizontal_Right (0x02)  -->
+                            <x:Int32>2</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xEA61;" />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+
+                    <!--  Bottom Row  -->
+                    <ToggleButton x:ConnectionId='22' x:Name="BIAlign_BottomLeft"
+                                  x:Uid="Profile_BackgroundImageAlignmentBottomLeft"
+                                  Grid.Row="2"
+                                  Grid.Column="0"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Bottom (0x20) | Horizontal_Left (0x01)  -->
+                            <x:Int32>33</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xE744;" />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <ToggleButton x:ConnectionId='23' x:Name="BIAlign_Bottom"
+                                  x:Uid="Profile_BackgroundImageAlignmentBottom"
+                                  Grid.Row="2"
+                                  Grid.Column="1"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Bottom (0x20) | Horizontal_Center (0x00)  -->
+                            <x:Int32>32</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xE745;" />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <ToggleButton x:ConnectionId='24' x:Name="BIAlign_BottomRight"
+                                  x:Uid="Profile_BackgroundImageAlignmentBottomRight"
+                                  Grid.Row="2"
+                                  Grid.Column="2"
+                                                           >
+                        <ToggleButton.Tag>
+                            <!--  ConvergedAlignment: Vertical_Top (0x20) | Horizontal_Right (0x02)  -->
+                            <x:Int32>34</x:Int32>
+                        </ToggleButton.Tag>
+                        <ToggleButton.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xEA5F;" />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                </Grid>
+            </local:SettingContainer>
+
+            <!--  Background Image Opacity  -->
+            <local:SettingContainer x:ConnectionId='13' x:Name="BackgroundImageOpacityContainer"
+                                    x:Uid="Profile_BackgroundImageOpacity"
+                                                                                                       
+                                                                                                                
+                                                                                                                                 
+                                                                                                                >
+                <Grid Style="{StaticResource CustomSliderControlGridStyle}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Slider x:ConnectionId='14' x:Name="BIOpacitySlider"
+                            Grid.Column="0"
+                                                                                                                                                                                                            />
+                    <TextBlock x:ConnectionId='15' Grid.Column="1"
+                               Style="{StaticResource SliderValueLabelStyle}"
+                                                                                                                         />
+                </Grid>
+            </local:SettingContainer>
+        </StackPanel>
+
+        <!--  Grouping: Text Formatting  -->
+        <StackPanel Style="{StaticResource PivotStackStyle}">
+            <TextBlock x:Uid="Appearance_TextFormattingHeader"
+                       Style="{StaticResource SubtitleTextBlockStyle}" />
+
+            <!--  Intense is bold, bright  -->
+            <local:SettingContainer x:ConnectionId='8' x:Uid="Appearance_IntenseTextStyle"
+                                    Margin="0"
+                                                                                                 
+                                                                                                          
+                                                                                                                           >
+                <muxc:RadioButtons x:ConnectionId='9' AutomationProperties.AccessibilityView="Content"
+                                   ItemTemplate="{StaticResource EnumRadioButtonTemplate}"
+                                                                                           
+                                                                                                />
+            </local:SettingContainer>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>
+

@@ -1,0 +1,104 @@
+﻿<!--
+    Copyright (c) Microsoft Corporation. All rights reserved. Licensed under
+    the MIT License. See LICENSE in the project root for license information.
+-->
+<Page x:ConnectionId='1' x:Class="Microsoft.Terminal.Settings.Editor.GlobalAppearance"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Microsoft.Terminal.Settings.Editor"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="EnumRadioButtonTemplate"
+                                                      >
+                <RadioButton x:ConnectionId='3'                                          />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer x:ConnectionId='4'                            >
+        <StackPanel Style="{StaticResource SettingsStackStyle}">
+            <!--  Language  -->
+            <local:SettingContainer x:ConnectionId='5' x:Uid="Globals_Language"
+                                    Margin="0"
+                                                                                   >
+                <ComboBox x:ConnectionId='18'                                    
+                                                                              >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate                      >
+                            <TextBlock x:ConnectionId='20'                                                                             />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </local:SettingContainer>
+
+            <!--  Theme  -->
+            <local:SettingContainer x:Uid="Globals_Theme">
+                <muxc:RadioButtons x:ConnectionId='17' AutomationProperties.AccessibilityView="Content"
+                                   ItemTemplate="{StaticResource EnumRadioButtonTemplate}"
+                                                                                
+                                                                                     />
+            </local:SettingContainer>
+
+            <!--  Always show tabs  -->
+            <local:SettingContainer x:Uid="Globals_AlwaysShowTabs">
+                <ToggleSwitch x:ConnectionId='16'                                                           />
+            </local:SettingContainer>
+
+            <!--  Show Titlebar  -->
+            <local:SettingContainer x:Uid="Globals_ShowTitlebar">
+                <ToggleSwitch x:ConnectionId='15'                                                               />
+            </local:SettingContainer>
+
+            <!--  Show Acrylic in Tab Row  -->
+            <local:SettingContainer x:Uid="Globals_AcrylicTabRow">
+                <ToggleSwitch x:ConnectionId='14'                                                               />
+            </local:SettingContainer>
+
+            <!--  Show Title in Titlebar  -->
+            <local:SettingContainer x:Uid="Globals_ShowTitleInTitlebar">
+                <ToggleSwitch x:ConnectionId='13'                                                                />
+            </local:SettingContainer>
+
+            <!--  Always on Top  -->
+            <local:SettingContainer x:Uid="Globals_AlwaysOnTop">
+                <ToggleSwitch x:ConnectionId='12'                                                        />
+            </local:SettingContainer>
+
+            <!--  Tab Width Mode  -->
+            <local:SettingContainer x:Uid="Globals_TabWidthMode">
+                <muxc:RadioButtons x:ConnectionId='11' AutomationProperties.AccessibilityView="Content"
+                                   ItemTemplate="{StaticResource EnumRadioButtonTemplate}"
+                                                                                       
+                                                                                            />
+            </local:SettingContainer>
+
+            <!--  Disable Animations  -->
+            <!--  NOTE: the UID is "DisablePaneAnimationsReversed" not "DisablePaneAnimations". See GH#9124 for more details.  -->
+            <local:SettingContainer x:Uid="Globals_DisableAnimationsReversed">
+                <ToggleSwitch x:ConnectionId='10'                                                                                                                                                        />
+            </local:SettingContainer>
+
+            <!--  Always Show Notification Icon  -->
+            <local:SettingContainer x:ConnectionId='6' x:Uid="Globals_AlwaysShowNotificationIcon"
+                                                                                        >
+                <ToggleSwitch x:ConnectionId='9'                                                                       />
+            </local:SettingContainer>
+
+            <!--  Minimize To Notification Area  -->
+            <local:SettingContainer x:ConnectionId='7' x:Uid="Globals_MinimizeToNotificationArea"
+                                                                                        >
+                <ToggleSwitch x:ConnectionId='8'                                                                       />
+            </local:SettingContainer>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
+
